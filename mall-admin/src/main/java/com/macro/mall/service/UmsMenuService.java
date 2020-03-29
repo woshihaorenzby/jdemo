@@ -33,7 +33,7 @@ public interface UmsMenuService {
     /**
      * 分页查询后台菜单
      */
-    List<UmsMenu> list(Long parentId, Integer pageSize, Integer pageNum);
+    List<UmsMenu> list(Long parentId, Integer pageSize, Integer pageNum,Integer type);
 
     /**
      * 树形结构返回所有菜单列表

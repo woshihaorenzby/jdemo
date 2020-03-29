@@ -21,6 +21,7 @@
         WHERE
             arr.admin_id = #{adminId}
           AND m.id IS NOT NULL
+          AND m.type = #{type}
         GROUP BY
             m.id
     </select>

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by macro on 2020/2/2.
  */
 public interface UmsRoleDao {
-    List<UmsMenu> getMenuList(@Param("adminId") Long adminId);
+    List<UmsMenu> getMenuList(@Param("adminId") Long adminId,Integer type);
 
     List<UmsMenu> getMenuListByRoleId(@Param("roleId") Long roleId);
 

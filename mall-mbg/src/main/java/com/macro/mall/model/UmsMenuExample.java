@@ -1,5 +1,7 @@
 package com.macro.mall.model;
 
+import io.swagger.models.auth.In;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +10,8 @@ public class UmsMenuExample {
     protected String orderByClause;
 
     protected boolean distinct;
+
+    protected Integer type;
 
     protected List<Criteria> oredCriteria;
 
@@ -29,6 +33,14 @@ public class UmsMenuExample {
 
     public boolean isDistinct() {
         return distinct;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public List<Criteria> getOredCriteria() {

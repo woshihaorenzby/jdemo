@@ -83,6 +83,9 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+    <if test="type != null">
+      AND type= #{type}
+    </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>

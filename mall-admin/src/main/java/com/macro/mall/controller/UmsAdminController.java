@@ -1,5 +1,6 @@
 package com.macro.mall.controller;
 
+import com.macro.mall.GithubRepoPageProcessor;
 import com.macro.mall.common.api.CommonPage;
 import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.dto.UmsAdminLoginParam;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import us.codecraft.webmagic.Spider;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -84,7 +86,7 @@ public class UmsAdminController {
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult getAdminInfo(Principal principal) {
+    public CommonResult getAdminInfo(Principal principal,@RequestParam(defaultValue = "1") Integer type) {
         if(principal==null){
             return CommonResult.unauthorized(null);
         }
@@ -93,7 +95,7 @@ public class UmsAdminController {
         Map<String, Object> data = new HashMap<>();
         data.put("username", umsAdmin.getUsername());
         data.put("roles", new String[]{"TEST"});
-        data.put("menus", roleService.getMenuList(umsAdmin.getId()));
+        data.put("menus", roleService.getMenuList(umsAdmin.getId(),type));
         data.put("icon", umsAdmin.getIcon());
         return CommonResult.success(data);
     }
@@ -214,5 +216,34 @@ public class UmsAdminController {
     public CommonResult<List<UmsPermission>> getPermissionList(@PathVariable Long adminId) {
         List<UmsPermission> permissionList = adminService.getPermissionList(adminId);
         return CommonResult.success(permissionList);
+    }
+    @ApiOperation("测试京东数据爬取")
+    @RequestMapping(value = "/test_jd/{adminId}", method = RequestMethod.GET)
+    public void test_jd(@PathVariable Long adminId) {
+        Long start_5= System.currentTimeMillis();
+        Spider.create( new GithubRepoPageProcessor()).addUrl("https://item.m.jd.com/product/5572930.html").thread(5).run();
+        Long end_5= System.currentTimeMillis();
+        //======================================================
+        Long start_4= System.currentTimeMillis();
+        Spider.create( new GithubRepoPageProcessor()).addUrl("https://item.m.jd.com/product/5572930.html").thread(4).run();
+        Long end_4= System.currentTimeMillis();
+        //======================================================
+        Long start_3= System.currentTimeMillis();
+        Spider.create( new GithubRepoPageProcessor()).addUrl("https://item.m.jd.com/product/5572930.html").thread(3).run();
+        Long end_3= System.currentTimeMillis();
+        //======================================================
+        Long start_2= System.currentTimeMillis();
+        Spider.create( new GithubRepoPageProcessor()).addUrl("https://item.m.jd.com/product/5572930.html").thread(2).run();
+        Long end_2= System.currentTimeMillis();
+        //======================================================
+        Long start_1= System.currentTimeMillis();
+        Spider.create( new GithubRepoPageProcessor()).addUrl("https://item.m.jd.com/product/5572930.html").thread(1).run();
+        Long end_1= System.currentTimeMillis();
+        System.out.println("5个线程-----------------"+(end_5-start_5));
+        System.out.println("4个线程-----------------"+(end_4-start_4));
+        System.out.println("3个线程-----------------"+(end_3-start_3));
+        System.out.println("2个线程-----------------"+(end_2-start_2));
+        System.out.println("1个线程-----------------"+(end_1-start_1));
+        //======================================================
     }
 }

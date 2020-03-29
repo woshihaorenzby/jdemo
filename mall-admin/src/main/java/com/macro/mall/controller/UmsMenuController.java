@@ -75,8 +75,8 @@ public class UmsMenuController {
     @ResponseBody
     public CommonResult<CommonPage<UmsMenu>> list(@PathVariable Long parentId,
                                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<UmsMenu> menuList = menuService.list(parentId, pageSize, pageNum);
+                                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,@RequestParam(value = "type", defaultValue = "1") Integer type) {
+        List<UmsMenu> menuList = menuService.list(parentId, pageSize, pageNum,type);
         return CommonResult.success(CommonPage.restPage(menuList));
     }
 

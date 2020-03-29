@@ -94,8 +94,8 @@ public class UmsRoleServiceImpl implements UmsRoleService {
     }
 
     @Override
-    public List<UmsMenu> getMenuList(Long adminId) {
-        return roleDao.getMenuList(adminId);
+    public List<UmsMenu> getMenuList(Long adminId,Integer type) {
+        return roleDao.getMenuList(adminId,type);
     }
 
     @Override
